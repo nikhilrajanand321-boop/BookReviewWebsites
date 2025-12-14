@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign Up - BookWorm</title>
+  <link rel="stylesheet" href="login.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="header-text">
+      <h1>BookWorm</h1>
+    </div>
+    <div class="auth-buttons">
+      <a href="login.html" class="login-btn">Login</a>
+      <a href="signup.html" class="signup-btn">Sign Up</a>
+    </div>
+  </header>
+
+  <main class="auth-main">
+
+    <form id="signupForm" class="review-form" novalidate>
+
+      <label for="name">Full name</label>
+      <input id="name" type="text" placeholder="Your name" />
+
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="you@example.com" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="Choose a password (min 6 chars)" />
+
+      <div id="signupError" class="form-error"></div>
+
+      <button type="button" id="signupBtn" class="btn">Sign Up</button>
+
+    </form>
+
+  </main>
+
+  <script>
+    (function(){
+      const STORAGE_KEY = "bookworm_users_v1";
+      const btn = document.getElementById("signupBtn");
+      const err = document.getElementById("signupError");
+
+      function loadUsers(){
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : [];
+        } catch(e){ return []; }
+      }
+
+      function saveUsers(users){
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+      }
+
+      function showError(msg){
+        err.textContent = msg || "";
+      }
+
+      btn.addEventListener("click", ()=>{
+        showError("");
+
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const password = document.getElementById("password").value;
+
+        if(!name) return showError("Please enter your name.");
+        if(!email) return showError("Please enter your email.");
+        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showError("Please enter a valid email.");
+        if(!password || password.length < 6) return showError("Password must be at least 6 characters.");
+
+        const users = loadUsers();
+        const existing = users.find(u => u.email === email);
+
+        if(existing){
+          showError("Account already exists. Redirecting...");
+          setTimeout(()=> window.location.href = "BookReview.html", 900); // CHANGED
+          return;
+        }
+
+        const user = {
+          id: Date.now().toString(36) + "-" + Math.random().toString(36).slice(2,8),
+          name,
+          email,
+          password
+        };
+
+        users.push(user);
+        saveUsers(users);
+
+        showError("Account created! Redirecting...");
+        setTimeout(()=> window.location.href = "BookReview.html", 900); // CHANGED
+      });
+    })();
+  </script>
+
+</body>
+</html>

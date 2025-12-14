@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BookWorm</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-text">
+            <h1>BookWorm</h1>
+            <p>Give, See, Edit & Review for any book easily</p>
+        </div>
+
+        <div class="auth-buttons">
+            <a href="login.html" class="login-btn">Login</a>
+            <a href="signup.html" class="signup-btn">Sign Up</a>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <a href="#hero">Home</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#add-review">Add Review</a>
+    </nav>
+
+    <main>
+
+        <section id="hero" class="hero">
+            <div class="hero-text">
+                <h2>Welcome to BookWorm</h2>
+                <p>
+                    A simple place for students to share what they think about books.
+                    Read reviews by others and rate your favourite books.
+                </p>
+                <a href="#add-review" class="btn">Start Writing a Review</a>
+            </div>
+        </section>
+
+        <section id="reviews" class="reviews">
+            <h2>Latest Reviews</h2>
+            <div class="c" id="reviewsContainer">
+                <article class="A">
+                    <h3>Atomic Habits</h3>
+                    <p class="author">By James Clear</p>
+                    <p class="genre">Non-Fiction • Rating: ★★★★★ (5/5)</p>
+                    <p class="text">Very simple language and powerful ideas. Helps you build good habits step by step.</p>
+                </article>
+
+                <article class="L">
+                    <h3>The Alchemist</h3>
+                    <p class="author">By Paulo Coelho</p>
+                    <p class="genre">Fiction • Rating: ★★★★☆ (4/5)</p>
+                    <p class="text">A short, inspiring story about following your dreams. Easy read for college students.</p>
+                </article>
+
+                <article class="H">
+                    <h3>Harry Potter and the Philosopher's Stone</h3>
+                    <p class="author">By J.K. Rowling</p>
+                    <p class="genre">Fantasy • Rating: ★★★★☆ (4/5)</p>
+                    <p class="text">
+                        A magical story with great characters. Perfect for beginners and people who are new to reading.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section id="add-review" class="section">
+            <h2>Add Your Review</h2>
+            <form id="reviewForm" class="review-form" novalidate>
+
+                <label for="title">Book Title</label>
+                <input type="text" id="title" placeholder="Enter book name">
+
+                <label for="author">Author</label>
+                <input type="text" id="author" placeholder="Enter author name">
+
+                <label for="genre">Genre</label>
+                <select id="genre">
+                    <option value="">Select genre</option>
+                    <option>Fiction</option>
+                    <option>Non-Fiction</option>
+                    <option>Fantasy</option>
+                    <option>Mystery</option>
+                    <option>Sci-Fi</option>
+                </select>
+
+                <label for="rating">Rating (1 to 5)</label>
+                <input type="number" id="rating" min="1" max="5" placeholder="e.g. 4">
+
+                <label for="review">Your Review</label>
+                <textarea id="review" rows="4" placeholder="Write your thoughts about the book..."></textarea>
+
+                <div id="formError" style="color:#c33; margin-top:8px;"></div>
+
+                <button type="button" id="submitReview" class="btn">Submit</button>
+            </form>
+        </section>
+
+        <section id="my-submissions" class="my-submissions">
+            <h2>Your Reviews (Submitted)</h2>
+            <div id="newReviewsContainer" class="c">
+            </div>
+        </section>
+
+    </main>
+
+    <script src="auth.js"></script>
+    <script src="login.js"></script>
+
+</body>
+
+</html>

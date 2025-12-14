@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login - BookWorm</title>
+  <link rel="stylesheet" href="login.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-text">
+      <h1>BookWorm</h1>
+    </div>
+    <div class="auth-buttons">
+      <a href="login.html" class="login-btn">Login</a>
+      <a href="signup.html" class="signup-btn">Sign Up</a>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <h2>Login</h2>
+
+    <form id="loginForm" novalidate>
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="you@example.com" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="Your password" />
+
+      <div id="loginError" style="color:#c33; margin-top:8px;"></div>
+
+      <button type="button" id="loginBtn" class="btn">Login</button>
+    </form>
+  </main>
+
+  <script src="auth.js"></script>
+  <script>
+    (function(){
+      const STORAGE_KEY = "bookworm_users_v1";
+      const CURRENT_KEY = "bookworm_current_user";
+      const btn = document.getElementById("loginBtn");
+      const err = document.getElementById("loginError");
+
+      function loadUsers(){
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : [];
+        } catch(e){ return []; }
+      }
+      function setCurrentUser(email){
+        localStorage.setItem(CURRENT_KEY, email);
+      }
+
+      function showError(msg){ err.textContent = msg || ""; }
+
+      btn.addEventListener("click", ()=>{
+        showError("");
+        const email = document.getElementById("email").value.trim().toLowerCase();
+        const password = document.getElementById("password").value;
+
+        if(!email) return showError("Please enter your email.");
+        if(!password) return showError("Please enter your password.");
+
+        const users = loadUsers();
+        const user = users.find(u => u.email === email);
+
+        if(!user){
+          showError("No account found with this email. Please sign up first.");
+          return;
+        }
+        if(user.password !== password){
+          showError("Incorrect password.");
+          return;
+        }
+
+        setCurrentUser(user.email);
+        window.location.href = "BookReview.html";
+      });
+    })();
+  </script>
+</body>
+</html>

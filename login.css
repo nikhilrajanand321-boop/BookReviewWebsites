@@ -1,0 +1,196 @@
+:root{
+  --bg-image: url("bg.jpg");
+  --panel-bg: rgba(12,10,16,0.88);
+  --panel-border: rgba(255,255,255,0.04);
+  --pill-bg: #ac7f53;
+  --muted: #cfc6be;
+  --input-width: 62%;
+  --input-min: 200px;
+  --input-max: 420px;
+}
+
+*{box-sizing:border-box;}
+html,body{
+  height:100%;
+  margin:0;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  color:#fff;
+  background-color:#4a4a4a;
+  background-image: var(--bg-image);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.55) 100%);
+  pointer-events:none;
+  z-index:0;
+}
+
+.header{
+  position:relative;
+  z-index:5;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:18px 30px;
+}
+.header-text h1{
+  margin:0;
+  font-size:34px;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:0.3px;
+}
+.auth-buttons{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  z-index:6;
+}
+.auth-buttons a{
+  text-decoration:none;
+  padding:8px 14px;
+  border-radius:22px;
+  font-weight:700;
+  font-size:13px;
+  border: 1px solid rgba(255,255,255,0.12);
+  cursor:pointer;
+}
+.auth-buttons .login-btn{ background: rgba(255,255,255,0.06); color:#fff; }
+.auth-buttons .signup-btn{ background:#fff; color:#111; border-color: rgba(0,0,0,0.08); }
+
+.auth-main{
+  position:relative;
+  z-index:5;
+  padding: 18px 12px 80px;
+  display:block;
+}
+
+.auth-main h2{ display:none; }
+
+form#loginForm, form#signupForm {
+  width:520px;
+  max-width: calc(100% - 60px);
+  margin: 28px auto 0;
+  background: var(--panel-bg);
+  border-radius:28px;
+  padding: 36px 40px 24px;
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.65);
+  position:relative;
+  backdrop-filter: blur(4px);
+}
+
+form#loginForm::before,
+form#signupForm::before {
+  content:"";
+  position:absolute;
+  left:50%;
+  transform: translateX(-50%) translateY(-56px);
+  top:0;
+  background: var(--pill-bg);
+  padding:10px 36px;
+  border-radius:12px;
+  font-size:28px;
+  font-weight:700;
+  color:#fff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  letter-spacing:0.6px;
+  z-index:4;
+}
+form#loginForm::before { content: "Login to BookWorm"; }
+form#signupForm::before { content: "Sign Up to BookWorm"; }
+
+form#loginForm label, form#signupForm label {
+  display:block;
+  margin: 18px 0 8px;
+  color: var(--muted);
+  text-align:center;
+  font-weight:600;
+  font-size:15px;
+}
+
+form#loginForm input[type="email"],
+form#loginForm input[type="password"],
+form#loginForm input[type="text"],
+form#loginForm textarea,
+form#signupForm input[type="email"],
+form#signupForm input[type="password"],
+form#signupForm input[type="text"],
+form#signupForm textarea {
+  display:block;
+  margin:0 auto;
+  width: var(--input-width);
+  min-width: var(--input-min);
+  max-width: var(--input-max);
+  background: #fff;
+  color:#111;
+  border:none;
+  padding:8px 10px;
+  height:20px;
+  border-radius:2px;
+  font-size:14px;
+  outline:none;
+  box-sizing:border-box;
+}
+
+form#loginForm textarea, form#signupForm textarea {
+  min-height:110px;
+  padding:10px;
+  height:auto;
+  resize:vertical;
+}
+
+form input::placeholder, form textarea::placeholder {
+  color: rgba(0,0,0,0.45);
+}
+
+.form-error, #loginError, #signupError {
+  text-align:center;
+  color:#ff6b6b;
+  margin-top:8px;
+  font-size:13px;
+}
+
+.btn {
+  display:inline-block;
+  margin:14px auto 4px;
+  background:#efefef;
+  color:#111;
+  border:1px solid rgba(0,0,0,0.12);
+  padding:6px 10px;
+  border-radius:4px;
+  cursor:pointer;
+  font-weight:600;
+  font-size:13px;
+}
+form#loginForm .btn, form#signupForm .btn {
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.btn:hover { filter:brightness(.98); }
+
+.my-submissions { margin-top:42px; padding:42px 16px; text-align:center; }
+#newReviewsContainer { display:grid; grid-template-columns:1fr; gap:18px; max-width:1000px; margin:0 auto; }
+@media (min-width:900px){ #newReviewsContainer{ grid-template-columns: repeat(2,1fr);} }
+.review-item { background: rgba(0,0,0,0.45); padding:14px; border-radius:8px; color:#fff; text-align:left; }
+.review-item h3{ margin:0 0 6px; font-size:18px; }
+.review-item .author{ color:var(--muted); margin:0 0 6px; font-size:13px; }
+.review-item .genre{ color:#c8e22a; font-weight:700; font-size:13px; }
+
+.delete-btn { margin-top:10px; background:transparent; color:#fff; border:1px solid rgba(255,255,255,0.06); padding:6px 8px; border-radius:6px; cursor:pointer; }
+
+@media (max-width:700px){
+  :root { --input-width:86%; --input-min:140px; }
+  form#loginForm, form#signupForm { width:94%; padding:22px; border-radius:18px; }
+  form#loginForm::before, form#signupForm::before { transform: translateX(-50%) translateY(-48px); font-size:20px; padding:8px 20px; }
+}
+
+.header-text{ display:flex; flex-direction:column; gap:4px; z-index:6; }
